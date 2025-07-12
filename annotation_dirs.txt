@@ -1,0 +1,16 @@
+./DRAM
+./DRAM/DRAM
+./DRAM/DRAM_bio.egg-info
+./DRAM/DRAM_data
+./DRAM_ANALYSIS
+./DRAM_ANALYSIS/dram_gene_annots_all_v3
+./DRAM_ANALYSIS/metabolic_output
+./DRAM_ANALYSIS/dram_output_20250416_2336
+./DRAM_ANALYSIS/dram_output
+./DRAM_ANALYSIS/dram_gene_annots_20250417_1025
+./DRAM_ANALYSIS/dram_gene_annots_all
+./DRAM_ANALYSIS/metabolic_output_m700_fix
+./DRAM_ANALYSIS/dram_output_20250416_2338
+./CPR_Microbiome_Analysis/dram_output
+./DRAM_data
+./CPR_MAGs_master/metabolic
