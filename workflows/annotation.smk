@@ -1,11 +1,27 @@
 ####################################################
 # annotation.smk: Prokka, DRAM & DRAM distill
-rule prokka:
-    input: "results/bins/das_tool/{sample}.fa"
-    output: directory("results/prokka/{sample}")
-    shell: "prokka --kingdom Bacteria --cpus 8 --outdir {output} --prefix {wildcards.sample} {input}"
 
-rule dram:
-    input: "results/prokka/{sample}/{sample}.tsv"
-    output: directory("results/dram/{sample}")
-    shell: "DRAM.py annotate -i {input} -o {output} && DRAM.py distillate -i {output}/annotations.tsv -o results/dram_distill/{wildcards.sample}"
+rule prokka:
+    input:
+        binfa="results/bins/das_tool/{sample}/{sample}.fa"
+    output:
+        dir="results/prokka/{sample}"
+    threads: 8
+    shell:
+        "prokka --kingdom Bacteria --cpus {threads} --outdir {output.dir} --prefix {wildcards.sample} {input.binfa}"
+
+rule dram_annotate:
+    input:
+        gff="results/prokka/{sample}/{sample}.gff"
+    output:
+        dir="results/dram/{sample}"
+    shell:
+        "DRAM.py annotate -i {input.gff} -o {output.dir}"
+
+rule dram_distill:
+    input:
+        annot="results/dram/{sample}/annotations.tsv"
+    output:
+        distill="results/dram_distill/{sample}/distilled_tables.tsv"
+    shell:
+        "DRAM.py distillate -i {input.annot} -o results/dram_distill/{wildcards.sample}"
