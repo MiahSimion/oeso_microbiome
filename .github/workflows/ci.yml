@@ -1,0 +1,19 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-update-conda: true
+          activate-environment: cpr_analysis
+          environment-file: envs/cpr_analysis.yaml
+      - name: Snakemake dry-run
+        run: snakemake --cores 1 --use-conda --unlock || true
+      - name: Run pipeline on example data
+        run: snakemake --cores 2 --use-conda --config samples=example
