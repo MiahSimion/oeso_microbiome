@@ -1,0 +1,4 @@
+samples:
+  - sample1
+reference: /path/to/GRCh38.fa
+threads: 16
